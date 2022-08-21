@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 // global vars
@@ -21,12 +23,11 @@ void Setup()
     gameOver = false;
     dir = STOP;
     x = width / 2;
-    y = width / 2;
-
+    y = height / 2;
     // time(0) is elapsed seconds from Jan 1 1970
     srand(time(0));
     foodX = rand() % width;
-    foodY = rand() % width;
+    foodY = rand() % height;
 
     score = 0;
 }
@@ -35,8 +36,8 @@ void Draw()
     // system("cls"); //windows
     system("clear"); // linux
 
-    //top of # box
-    for (int i = 0; i < width+2; i++)
+    // top of # box
+    for (int i = 0; i < width + 2; i++)
     {
         cout << "#";
     }
@@ -52,8 +53,21 @@ void Draw()
             {
                 cout << "#";
             }
+            if (i == y && j == x)
+            // if (i == x && j == y)
+            {
 
-            cout << " ";
+                cout << "O";
+            }
+            else if (i == foodY && j == foodX)
+            {
+                cout << "F";
+            }
+
+            else
+            {
+                cout << " ";
+            }
 
             if (j == width - 1)
             {
@@ -63,8 +77,8 @@ void Draw()
         cout << endl;
     }
 
-    //bottom of # box
-    for (int i = 0; i < width +2; i++)
+    // bottom of # box
+    for (int i = 0; i < width + 2; i++)
     {
         cout << "#";
     }
@@ -72,6 +86,7 @@ void Draw()
 }
 void Input()
 {
+    
 }
 void Logic()
 {
@@ -80,9 +95,9 @@ void Logic()
 int main()
 {
     Setup();
+    Draw();
     while (!gameOver)
     {
-        Draw();
         Input();
         Logic();
         // Sleep(10);
